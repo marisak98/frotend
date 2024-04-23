@@ -113,9 +113,7 @@ export default function LoginPage() {
                         )}
                       />
                       <Button type="submit">
-                        <Link href="/dashboard">
-                          <span>Iniciar Sesion.</span>
-                        </Link>
+                        <span>Iniciar Sesion.</span>
                       </Button>
                     </form>
                   </Form>

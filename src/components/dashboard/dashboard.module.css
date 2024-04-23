@@ -1,0 +1,19 @@
+.container {
+  display: flex;
+  --textSoft: #b7bac1;
+  min-height: 100vh;
+}
+
+.menu {
+  flex: 1;
+  background-color: var(--bgSoft);
+  --bgSoft: #182237;
+  --text: #fff;
+  --textSoft: #b7bac1;
+  padding: 20px;
+}
+
+.content {
+  flex: 4;
+  padding: 20px;
+}
