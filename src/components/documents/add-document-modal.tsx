@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
+import DocumentUpload from "@/components/document-upload";
 
 export default function AddDocumentModal({
   newVersion,
@@ -18,13 +19,15 @@ export default function AddDocumentModal({
   isDataroom,
   dataRoomId,
 }: {
-  newVersion: boolean;
+  newVersion?: boolean;
   children: React.ReactNode;
-  isDataroom: boolean;
-  dataRoomId: string;
+  isDataroom?: boolean;
+  dataRoomId?: string;
 }) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [currentFile, setCurrentFile] = useState<File | null>(null);
+  const [uploading, setUploading] = useState<boolean>(false);
+  const [notionLink, setNotionLink] = useState<string | null>(null);
 
   const handleFileUpload = async (
     event: FormEvent<HTMLFormElement>,
@@ -75,8 +78,24 @@ export default function AddDocumentModal({
                 >
                   <div className="space-y-1">
                     <div className="pb-6">
-                      <div className="grid grid-cols-1 gap-x-6 sm:grid-cols-6"></div>
+                      <div className="grid grid-cols-1 gap-x-6 sm:grid-cols-6">
+                        <DocumentUpload
+                          currentFile={currentFile}
+                          setCurrentFile={setCurrentFile}
+                        />
+                      </div>
                     </div>
+                  </div>
+
+                  <div className="flex justify-center">
+                    <Button
+                      type="submit"
+                      className="w-full lg:w-1/2"
+                      disabled={uploading || !currentFile}
+                      loading={uploading}
+                    >
+                      {uploading ? "Uploading..." : "Upload Document"}
+                    </Button>
                   </div>
                 </form>
               </CardContent>
