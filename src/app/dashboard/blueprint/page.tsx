@@ -10,6 +10,8 @@ export default function Blueprint() {
             Visualiza y administra todos los blueprint de tu organización.
           </p>
         </div>
+
+        <div className="flex items-center gap-x-1"></div>
       </section>
     </main>
   );
