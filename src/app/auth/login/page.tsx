@@ -19,7 +19,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import Link from "next/link";
-import { Butcherman } from "next/font/google";
 
 export default function LoginPage() {
   const form = useForm<z.infer<typeof Loginschema>>({
@@ -49,10 +48,11 @@ export default function LoginPage() {
           {/*Login seccions*/}
           <div className="w-3/5 p-5">
             <div className="text-left font-bold">
-              <span className="text-green-500">Javier</span>Diez
+              <span className="text-red-500">Javier</span>
+              <span className="text-black">Diez</span>
             </div>
             <div className="py-10">
-              <h2 className="text-3xl font-bold mb-2 text-green-500">
+              <h2 className="text-3xl font-bold mb-2 text-black">
                 Iniciar sesión
               </h2>
               <div className="border-2 w-10 border-green-500 inline-block mb-2"></div>
@@ -123,7 +123,7 @@ export default function LoginPage() {
                   <Label className="flex items-center text-xs">
                     Recordan Contraseña
                   </Label>
-                  <Button variant="link" className="text-xs" asChild>
+                  <Button variant="link" className="text-xs">
                     <Link href="/auth/resetPassword">
                       Recuperar Constraseña.
                     </Link>
@@ -133,7 +133,7 @@ export default function LoginPage() {
             </div>
           </div>
           {/*Logo and message*/}
-          <div className="w-2/5 bg-green-500 text-white rounded-tr-2xl rounded-br-2xl py-36 px-12">
+          <div className="w-2/5 bg-red-500 text-white rounded-tr-2xl rounded-br-2xl py-36 px-12">
             <h1 className="text-3xl font-bold mb-2">Javier Diez</h1>
             <div className="border-2 w-10 border-white inline-block mb-2"></div>
             <p className="mb-2">
