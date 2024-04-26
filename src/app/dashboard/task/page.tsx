@@ -2,7 +2,8 @@ import * as React from "react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Users } from "lucide-react";
-import { Tasks, columns, Status, Priority } from "./columns";
+import { Tasks, columns } from "./columns";
+import { Priority, Status } from "./columns";
 import { DataTable } from "./data-table";
 
 async function getTask(): Promise<Tasks[]> {
@@ -11,43 +12,43 @@ async function getTask(): Promise<Tasks[]> {
       id: "1",
       task: "TASK-1",
       title: "Soldar la extructura para el proyecto 1",
-      status: Status.EnProgreso,
-      priority: Priority.Alta,
+      status: "Pendiente",
+      priority: "Alta",
     },
     {
       id: "2",
       task: "TASK-2",
       title: "Pulir la extructura para el proyecto 2",
-      status: Status.Completado,
-      priority: Priority.Media,
+      status: "Completado",
+      priority: "Media",
     },
     {
       id: "3",
       task: "TASK-3",
       title: "Pintar la extructura para el proyecto 3",
-      status: Status.EnEspera,
-      priority: Priority.Baja,
+      status: "En Progreso",
+      priority: "Baja",
     },
     {
       id: "4",
       task: "TASK-4",
       title: "Pintar la extructura para el proyecto 4",
-      status: Status.Pendiente,
-      priority: Priority.Media,
+      status: "Cancelado",
+      priority: "Alta",
     },
     {
       id: "5",
       task: "TASK-5",
       title: "Doblar el tol para la cubierta",
-      status: Status.EnProgreso,
-      priority: Priority.Alta,
+      status: "En Espera",
+      priority: "Alta",
     },
     {
       id: "6",
       task: "TASK-6",
       title: "Pulir la extructura para el proyecto 6",
-      status: Status.Completado,
-      priority: Priority.Media,
+      status: "Pendiente",
+      priority: "Media",
     },
   ];
 }

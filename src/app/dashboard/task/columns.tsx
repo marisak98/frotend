@@ -13,13 +13,13 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Checkbox } from "@/components/ui/checkbox";
 
-export enum Priority {
+export const enum Priority {
   Baja = "Baja",
   Media = "Media",
   Alta = "Alta",
 }
 
-export enum Status {
+export const enum Status {
   EnProgreso = "En Progreso",
   Cancelado = "Cancelado",
   Completado = "Completado",
@@ -30,8 +30,13 @@ export type Tasks = {
   id: string;
   task: string;
   title: string;
-  priority: Priority;
-  status: Status;
+  priority: "Baja" | "Media" | "Alta";
+  status:
+    | "En Progreso"
+    | "Cancelado"
+    | "Completado"
+    | "Pendiente"
+    | "En Espera";
 };
 
 export const columns: ColumnDef<Tasks>[] = [
@@ -58,38 +63,50 @@ export const columns: ColumnDef<Tasks>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "status",
-    header: "Estado",
+    accessorKey: "task",
+    header: "Tarea",
   },
   {
-    accessorKey: "name",
-    header: "Nombre",
-  },
-  {
-    accessorKey: "area",
-    header: "Área",
-  },
-  {
-    accessorKey: "email",
+    accessorKey: "title",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() == "asc")}
         >
-          Correo
+          Título
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
   },
   {
-    accessorKey: "phone",
-    header: "Teléfono",
+    accessorKey: "status",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() == "asc")}
+        >
+          Estado
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
   },
   {
-    accessorKey: "proyects",
-    header: "Proyectos",
+    accessorKey: "priority",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() == "asc")}
+        >
+          Prioridad
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
   },
   {
     id: "actions",
