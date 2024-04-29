@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Users } from "lucide-react";
 import { Tasks, columns } from "./columns";
-import { Priority, Status } from "./columns";
 import { DataTable } from "./data-table";
 
 async function getTask(): Promise<Tasks[]> {
