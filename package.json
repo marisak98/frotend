@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@clerk/nextjs": "^5.0.3",
     "@emoji-mart/data": "^1.2.1",
     "@emoji-mart/react": "^1.1.1",
     "@hookform/resolvers": "^3.3.4",
@@ -39,6 +40,7 @@
     "react-dropzone": "^14.2.3",
     "react-hook-form": "^7.51.3",
     "react-icons": "^5.1.0",
+    "react-router-dom": "^6.23.0",
     "sonner": "^1.4.41",
     "swr": "^2.2.5",
     "tailwind-merge": "^2.2.2",
@@ -47,6 +49,7 @@
     "zod": "^3.22.5"
   },
   "devDependencies": {
+    "@tanstack/react-query-devtools": "^5.32.1",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
