@@ -14,6 +14,7 @@ import { SiBlueprint } from "react-icons/si";
 import MenuLink from "./menu-link/menu-link";
 import styles from "./sidebar.module.css";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import Logo from "@/components/logo";
 
 const MenuItems = [
   {
@@ -21,52 +22,52 @@ const MenuItems = [
     list: [
       {
         title: "Dashboard",
-        path: "/dashboard",
+        path: "/",
         icon: <MdDashboard />,
       },
       {
         title: "Empleados",
-        path: "/dashboard/employee",
+        path: "/employee",
         icon: <FaUsersCog />,
       },
       {
         title: "Ordenes de Produccion",
-        path: "/dashboard/orderList",
+        path: "/orderList",
         icon: <CiViewList />,
       },
       {
         title: "Planos",
-        path: "/dashboard/blueprint",
+        path: "/blueprint",
         icon: <SiBlueprint />,
       },
       {
         title: "Ordenes de Diseño",
-        path: "/dashboard/orderDesign",
+        path: "/orderDesign",
         icon: <MdDesignServices />,
       },
       {
         title: "Detalle de Orden",
-        path: "/dashboard/orderDetail",
+        path: "/orderDetail",
         icon: <TbListDetails />,
       },
       {
         title: "Estado de Ordenes",
-        path: "/dashboard/orderTracking",
+        path: "/orderTracking",
         icon: <CiDeliveryTruck />,
       },
       {
         title: "Tareas",
-        path: "/dashboard/task",
+        path: "/task",
         icon: <FaTasks />,
       },
       {
         title: "Historial de Trabajo",
-        path: "/dashboard/history",
+        path: "/history",
         icon: <MdWorkHistory />,
       },
       {
         title: "Chat",
-        path: "/dashboard/chat",
+        path: "/chat",
         icon: <MdOutlineChat />,
       },
     ],
@@ -76,35 +77,45 @@ const MenuItems = [
     list: [
       {
         title: "Line Chart",
-        path: "/dashboard/charts/reports",
+        path: "/charts/reports",
         icon: <FaChartArea />,
       },
       {
         title: "Bar Chart",
-        path: "/dashboard/charts/bar",
+        path: "/charts/bar",
         icon: <FaChartArea />,
       },
       {
         title: "Pie Chart",
-        path: "/dashboard/charts/pie",
+        path: "/charts/pie",
         icon: <MdAddChart />,
       },
     ],
   },
 ]; // Add your menu items here
 
-export function Sidebar() {
+function Sidebar() {
+  return (
+    <>
+      <DesktopSidebar />
+    </>
+  );
+}
+
+function DesktopSidebar() {
   return (
     <div className={styles.container}>
       <div className={styles.user}>
-        <Avatar>
+        {/* <Avatar>
           <AvatarImage src="https://github.com/shadcn.png" />
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
+
         <div className={styles.userDetail}>
           <span className={styles.username}>Jhon Joe</span>
           <span className={styles.userTitle}>Administrator</span>
-        </div>
+        </div>*/}
+        <Logo />
       </div>
       <ul className={styles.list}>
         {MenuItems.map((cat) => (
@@ -119,3 +130,5 @@ export function Sidebar() {
     </div>
   );
 }
+
+export default Sidebar;

@@ -49,7 +49,7 @@ async function WizardPage() {
       <Separator />
 
       <Button className="w-full">
-        <Link href={"/"}>Listo, llevame al dashboard.</Link>
+        <Link href={"/dashboard"}>Terminar configuracion.</Link>
       </Button>
       <div className="mt-8">
         <Logo />

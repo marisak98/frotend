@@ -1,5 +1,5 @@
 "use client";
-import { Sidebar } from "@/components/dashboard/sidebar/sidebar";
+import Sidebar from "@/components/dashboard/sidebar/sidebar";
 import { ReactNode } from "react";
 import styles from "@/components/dashboard/dashboard.module.css";
 import Navbar from "@/components/dashboard/navbar/navbar";

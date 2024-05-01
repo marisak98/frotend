@@ -29,14 +29,30 @@ model UserSettings {
 
 model Category {
   id        String    @id @default(cuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+
   userId    String
   name      String
   icon      String
   type      String    @default("active")
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+    @@unique([name, userId, type])
+}
 
-  @@unique([name, userId, type])
+model OpTransaction {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updateAt  DateTime @default(now())
+
+  amount      Float
+  description String
+  date        DateTime
+  userId      String
+  type        String   @default("nueva")
+
+  category     String
+  categoryIcon String
 }
 
 model OpHistory {
