@@ -11,8 +11,14 @@ import {
 import Logo from "@/components/logo";
 import Link from "next/link";
 import { OPComboBox } from "@/components/op-comboBox";
+import { currentUser } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 
 async function WizardPage() {
+  const user = await currentUser();
+  if (!user) {
+    redirect("/sign-in");
+  }
   return (
     <div
       className="container flex max-w-2xl flex-col
@@ -20,7 +26,7 @@ async function WizardPage() {
     >
       <div>
         <h1 className="text-center text-3xl">
-          Welcome, <span className="ml-2 font-bold">User New</span>
+          Welcome, <span className="ml-2 font-bold">{user.firstName}!</span>
         </h1>
         <h2 className="mt-4 text-center text-base text-muted-foreground">
           Iniciando la configuracion para SOPOS v2.0

@@ -11,11 +11,11 @@ export default function SkeletonWrapper({
   isLoading: boolean;
   fullWindth?: boolean;
 }) {
-  if (!isLoading) {
+  if (!isLoading)  return children; 
     return (
       <Skeleton className={cn(fullWindth && "w-full")}>
         <div className="opacity-0">{children}</div>
       </Skeleton>
     );
-  }
+  
 }

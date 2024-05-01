@@ -8,6 +8,8 @@ import {
   MdSearch,
 } from "react-icons/md";
 import { usePathname } from "next/navigation";
+import { ThemeSwitcherBtn } from "@/components/ThemeSwitcherBtn";
+import { UserButton } from "@clerk/nextjs";
 
 export default function Navbar() {
   const pathName = usePathname();
@@ -25,6 +27,8 @@ export default function Navbar() {
           <MdOutlineChat size={20} />
           <MdPublic size={20} />
         </div>
+        <ThemeSwitcherBtn />
+        <UserButton afterSignOutUrl="/sign-in" />
       </div>
     </div>
   );

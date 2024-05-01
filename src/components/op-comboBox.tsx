@@ -18,44 +18,39 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-
-type Status = {
-  value: string;
-  label: string;
-};
-
-const statuses: Status[] = [
-  {
-    value: "backlog",
-    label: "Backlog",
-  },
-  {
-    value: "todo",
-    label: "Todo",
-  },
-  {
-    value: "in progress",
-    label: "In Progress",
-  },
-  {
-    value: "done",
-    label: "Done",
-  },
-  {
-    value: "canceled",
-    label: "Canceled",
-  },
-];
+import { opStates, opState } from "@/lib/op-states";
+import { useQuery } from "@tanstack/react-query";
+import SkeletonWrapper from "./skeletonWrapper";
+import { UserSettings } from "@prisma/client";
 
 export function OPComboBox() {
   const [open, setOpen] = React.useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)");
-  const [selectedStatus, setSelectedStatus] = React.useState<Status | null>(
+  const [selectedStatus, setSelectedStatus] = React.useState<opState | null>(
     null,
   );
 
+  const userSettings = useQuery<UserSettings>({
+    queryKey: ["userSetting"],
+    queryFn: () => fetch("/api/user-settings").then((res) => res.json()),
+  });
+
+  React.useEffect(() => {
+    if(!userSettings.data) return;
+
+    const userCurrency = opStates.find(
+      (currency) => currency.value === userSettings.data.currency,
+    );
+    if (userCurrency) {
+      setSelectedStatus(userCurrency);
+    }
+  }, [userSettings.data]);
+
+  console.log("@@@ USER SETTINGS", userSettings);
+
   if (isDesktop) {
     return (
+      <SkeletonWrapper isLoading={userSettings.isFetching}>
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button variant="outline" className="w-[180px] justify-start">
@@ -70,10 +65,12 @@ export function OPComboBox() {
           <StatusList setOpen={setOpen} setSelectedStatus={setSelectedStatus} />
         </PopoverContent>
       </Popover>
+      </SkeletonWrapper>
     );
   }
 
   return (
+    <SkeletonWrapper isLoading={userSettings.isFetching}>
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>
         <Button variant="outline" className="w-[180px] justify-start">
@@ -90,6 +87,7 @@ export function OPComboBox() {
         </div>
       </DrawerContent>
     </Drawer>
+    </SkeletonWrapper>
   );
 }
 
@@ -98,7 +96,7 @@ function StatusList({
   setSelectedStatus,
 }: {
   setOpen: (open: boolean) => void;
-  setSelectedStatus: (status: Status | null) => void;
+  setSelectedStatus: (status: opState | null) => void;
 }) {
   return (
     <Command>
@@ -106,13 +104,13 @@ function StatusList({
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>
         <CommandGroup>
-          {statuses.map((status) => (
+          {opStates.map((status) => (
             <CommandItem
               key={status.value}
               value={status.value}
               onSelect={(value) => {
                 setSelectedStatus(
-                  statuses.find((priority) => priority.value === value) || null,
+                  opStates.find((priority) => priority.value === value) || null,
                 );
                 setOpen(false);
               }}
