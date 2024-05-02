@@ -4,8 +4,14 @@ import React from "react";
 import { opStateType } from "@/lib/types";
 import { useQuery } from "@tanstack/react-query";
 import { Category } from "@prisma/client";
-import { Popover, PopoverTrigger } from "@/components/ui/popover";
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+} from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
+import { Command, CommandInput } from "@/components/ui/command";
+import CreateBlueprintDialog from "@/app/(dashboard)/_components/CreateBlueprintDialog";
 
 interface Props {
   type: opStateType;
@@ -18,7 +24,7 @@ function BlueprintPicker({ type }: Props) {
   const blueprintQuery = useQuery({
     queryKey: ["blueprint", type],
     queryFn: () =>
-      fetch("/api/blueprint?type=${type}").then((res) => res.json()),
+      fetch(`/api/blueprint?type=${type}`).then((res) => res.json()),
   });
 
   const selectBlueprint = blueprintQuery.data?.find(
@@ -41,6 +47,16 @@ function BlueprintPicker({ type }: Props) {
           )}
         </Button>
       </PopoverTrigger>
+      <PopoverContent className="w-[200px] p-0">
+        <Command
+          onSubmit={(e) => {
+            e.preventDefault();
+          }}
+        >
+          <CommandInput placeholder="Buscar planos..." />
+          <CreateBlueprintDialog type={type} />
+        </Command>
+      </PopoverContent>
     </Popover>
   );
 }
@@ -51,6 +67,7 @@ function BlueprintRow({ blueprint }: { blueprint: Category }) {
   return (
     <div className="flex items-center gap-2">
       <span role="img">{blueprint.icon}</span>
+      <span>{blueprint.name}</span>
     </div>
   );
 }
