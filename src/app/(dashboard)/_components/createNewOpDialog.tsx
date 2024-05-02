@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ReactNode } from "react";
+import React, { ReactNode, useCallback } from "react";
 import { opStateType } from "@/lib/types";
 import BlueprintPicker from "../_components/BlueprintPicker";
 import {
@@ -17,6 +17,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import {
@@ -24,6 +25,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { DialogFooter, DialogClose } from "@/components/ui/dialog";
+import { Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useForm } from "react-hook-form";
 import {
@@ -31,6 +34,10 @@ import {
   OpTransactionSchemaType,
 } from "../../../../schemas/OpTransactionSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "@/components/ui/button";
+import { CalendarIcon } from "lucide-react";
+import { Calendar } from "@/components/ui/calendar";
+import { format } from "date-fns";
 
 interface Props {
   trigger: ReactNode;
@@ -45,6 +52,13 @@ function CreateNewOpDialog({ trigger, type }: Props) {
       date: new Date(),
     },
   });
+
+  const handleBlueprintChange = useCallback(
+    (value: string) => {
+      form.setValue("category", value);
+    },
+    [form],
+  );
 
   return (
     <Dialog>
@@ -96,7 +110,7 @@ function CreateNewOpDialog({ trigger, type }: Props) {
                 </FormItem>
               )}
             />
-
+            Transacction: {form.watch("category")}
             <div
               className="flex items-center
             justify-between gap-2"
@@ -108,7 +122,10 @@ function CreateNewOpDialog({ trigger, type }: Props) {
                   <FormItem>
                     <FormLabel>Plano.</FormLabel>
                     <FormControl>
-                      <BlueprintPicker type={type} />
+                      <BlueprintPicker
+                        type={type}
+                        onChange={handleBlueprintChange}
+                      />
                     </FormControl>
                     <FormDescription>
                       Seleccione el Plano para de asignar las tarea.
@@ -123,18 +140,57 @@ function CreateNewOpDialog({ trigger, type }: Props) {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Fecha de la tarea.</FormLabel>
-                    <FormControl>
-                      <Input defaultValue={""} {...field} />
-                    </FormControl>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            variant={"outline"}
+                            className={cn(
+                              "w-[200px] pl-3 text-left font-normal",
+                              !field.value && "text-muted-foreground",
+                            )}
+                          >
+                            {field.value ? (
+                              format(field.value, "PPP")
+                            ) : (
+                              <span>Seleccione la fecha</span>
+                            )}
+                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0">
+                        <Calendar
+                          mode="single"
+                          selected={field.value}
+                          onSelect={field.onChange}
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
                     <FormDescription>
-                      Seleccione el Plano para de asignar las tarea.
+                      Seleccione la fecha de la tarea.
                     </FormDescription>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
             </div>
           </form>
         </Form>
+        <DialogFooter>
+          <DialogClose asChild>
+            <Button
+              variant={"secondary"}
+              type="button"
+              onClick={() => {
+                form.reset();
+              }}
+            >
+              Cancelar
+            </Button>
+          </DialogClose>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

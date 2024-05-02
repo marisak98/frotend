@@ -25,7 +25,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { opState } from "@/lib/types";
+import { opStateType } from "../../../lib/types";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CircleOff, Loader2, PlusSquare } from "lucide-react";
@@ -48,7 +48,7 @@ interface Category {
 }
 
 interface Props {
-  type: opState;
+  type: opStateType;
   successCallback: (category: Category) => void;
   trigger?: ReactNode;
 }
@@ -106,7 +106,7 @@ function CreateCategoryDialog({ type, successCallback, trigger }: Props) {
             <span
               className={cn(
                 "m-1",
-                type === "inactive" ? "text-emerald-500" : "text-red-500",
+                type === "inactivo" ? "text-emerald-500" : "text-red-500",
               )}
             >
               {type}

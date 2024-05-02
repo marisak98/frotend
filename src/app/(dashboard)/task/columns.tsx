@@ -64,7 +64,11 @@ export const columns: ColumnDef<Tasks>[] = [
   },
   {
     accessorKey: "task",
-    header: "Tarea",
+    header: "OP",
+  },
+  {
+    accessorKey: "task",
+    header: "PLANO",
   },
   {
     accessorKey: "title",
@@ -74,7 +78,7 @@ export const columns: ColumnDef<Tasks>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() == "asc")}
         >
-          Título
+          DESCRIPCION
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
@@ -89,6 +93,20 @@ export const columns: ColumnDef<Tasks>[] = [
           onClick={() => column.toggleSorting(column.getIsSorted() == "asc")}
         >
           Estado
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+  },
+  {
+    accessorKey: "status",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() == "asc")}
+        >
+          ACTIVIDAD
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );

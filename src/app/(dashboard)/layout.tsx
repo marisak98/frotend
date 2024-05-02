@@ -8,7 +8,7 @@ type LayaoutProps = { children?: ReactNode };
 
 export default function Layaout({ children }: LayaoutProps) {
   return (
-    <div className="min-h-screen bg-[#151c2c] ">
+    <div className="min-h-screen min-w-screen bg-[#151c2c] ">
       <div className={styles.container}>
         <div className={styles.menu}>
           <Sidebar />
